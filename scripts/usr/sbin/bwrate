@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# tmux helper script to get current transfer rates
+# Contributors:  Prurigro, inhies
+# License: MIT (included in footer)
+
+TIMESPAN=1   # Timespan in seconds to measure over
+USE_BC=true  # Use bc to get a more accurate number
+PREC="2"     # If using bc, to what precision do you want the results
+
+if [ -z $1 ]; then
+    echo "Error: no device specified"
+    exit 1
+fi
+
+if [ ! -d /sys/class/net/$1 ]; then
+    echo "No such device: $1"
+    exit 1
+fi
+
+BR1=`cat /sys/class/net/$1/statistics/rx_bytes`
+BT1=`cat /sys/class/net/$1/statistics/tx_bytes`
+
+sleep $TIMESPAN
+
+BR2=`cat /sys/class/net/$1/statistics/rx_bytes`
+BT2=`cat /sys/class/net/$1/statistics/tx_bytes`
+
+DOWNKBS=$(((($BR2-$BR1) / $TIMESPAN) /1024))
+UPKBS=$(((($BT2-$BT1) / $TIMESPAN) /1024))
+
+if $USE_BC ; then
+    DOWN_SIZE=`echo "scale=$PREC; $BR2/1024/1024/1024" | bc`
+    UP_SIZE=`echo "scale=$PREC; $BT2/1024/1024/1024" | bc`
+
+    if [ `echo "$DOWN_SIZE<1" | bc -l` = "1" ]; then 
+        DOWN_SIZE=`echo "scale=$PREC; $BR2/1024/1024" | bc`
+        DOWN_STRING="${DOWN_SIZE}MB"
+    else 
+        DOWN_STRING="${DOWN_SIZE}GB"
+    fi
+
+    if [ `echo "$UP_SIZE<1" | bc -l`  = "1" ]; then 
+        UP_SIZE=`echo "scale=$PREC; $BT2/1024/1024" | bc`
+        UP_STRING="${UP_SIZE}MB"
+    else
+        UP_STRING="${UP_SIZE}GB"
+    fi
+
+else
+    DOWN_SIZE=$(($BR2/1024/1024/1024))
+    UP_SIZE=$(($BT2/1024/1024/1024))
+ 
+    if [ "$DOWN_SIZE" = "0" ]; then 
+        DOWN_SIZE=$(($BR2/1024/1024))
+        DOWN_STRING="${DOWN_SIZE}MB"
+    else 
+        DOWN_STRING="${DOWN_SIZE}GB"
+    fi
+
+    if [ "$UP_SIZE" = "0" ]; then 
+        UP_SIZE=$(($BT2/1024/1024))
+        UP_STRING="${UP_SIZE}MB"
+    else
+        UP_STRING="${UP_SIZE}GB"
+    fi
+fi 
+
+echo "$DOWN_STRING DL [${DOWNKBS}KB/s] | $UP_STRING UL [${UPKBS}KB/s]"
+
+# The MIT License (MIT)
+# Copyright (c) 2013 Prurigro
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

@@ -1,0 +1,62 @@
+[credential]
+	helper = cache --timeout=9001
+[alias]
+    root = !pwd
+    this = !git init && git add . && git commit -m \"Initial commit\"
+    c = commit -m
+    a = add
+    aa= !git add -u && git add . && git status
+    cob = checkout -b
+    up = !git fetch origin && git rebase origin/master
+    ir = !git rebase -i origin/master
+    done = !git fetch && git rebase origin/master && git checkout master && git merge @{-1} && rake && git push
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+[merge]
+    # Include summaries of merged commits in newly created merge commit messages
+    log = true
+    tool = fugitive
+
+# Use `origin` as the default remote on the `master` branch in all cases
+[branch "master"]
+    remote = origin
+    merge = refs/heads/master
+
+[color]
+    # Use colors in Git commands that are capable of colored output when outputting to the terminal
+    ui = auto
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "diff"]
+    meta = yellow 
+    frag = magenta 
+    old = red 
+    new = green 
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+[apply]
+    # Detect whitespace errors when applying a patch
+    whitespace = fix
+
+# URL shorthands
+# github://paulmillr/dotfiles
+[url "git@github.com:"]
+  insteadOf = "github://"
+  pushInsteadOf = "github://"
+  pushInsteadOf = "git://github.com/"
+
+# gist://3928760
+[url "git@gist.github.com:"]
+  insteadOf = "gist://"
+  pushInsteadOf = "gist://"
+  pushInsteadOf = "git://gist.github.com/"
+[mergetool "fugitive"]
+	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
+[core]
+	excludesfile = ~/.gitignore_global
+[push]
+	default = simple

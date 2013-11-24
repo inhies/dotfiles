@@ -1,0 +1,16 @@
+#!/bin/bash
+ 
+# Create a development tmux session with vim open on the left, and two terminals on the right
+SN="dev"
+ 
+tmux has-session -t $SN &>/dev/null
+ 
+if [ $? != 0 ]
+then
+	tmux new -s $SN -n dev -d "vim $*"
+	tmux split-window -h -p 50 # split vertically by 50%
+	tmux split-window -v -p 50
+	tmux select-pane -t 1
+fi
+ 
+tmux -2 attach -t $SN 
