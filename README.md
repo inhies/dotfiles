@@ -2,7 +2,8 @@ Dotfiles
 ========
 
 This is my personal dotfile repo. They are organized to be easily
-used with GNU Stow.
+used with GNU Stow and git subtree.
+
 
 Usage
 -----
@@ -14,3 +15,11 @@ repository.
 
 For instance, running `stow vim` will symlink all my the files in the
 vim folder in to your home directory.
+
+
+Helpers
+-------
+
+The `scripts` project contains many helper scripts for working with `stow`,
+including `restow` which accepts a lists of project names which will recreate
+all the symlinks for the specified project; useful if you've made some changes.
