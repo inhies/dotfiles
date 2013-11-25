@@ -1,0 +1,140 @@
+#!/bin/bash
+declare -A rawMap # Global associative array to hold raw .subtrees lines
+
+function loadSubtrees(){
+	while read line
+	do
+		temparray=( $line )
+		rawMap[${temparray[0]}]=$line	
+	done < "./.subtrees"
+}
+
+function add() {
+	# Add the remote and return if there is an error
+	git remote add -f $1 $2 
+	if [ "$?" -ne "0" ]; then
+		return
+	fi
+	git subtree add --prefix $4 $1 $3 --squash
+	# If there was an error adding the subtree, remove the remote we just added
+	if [ "$?" -ne "0" ]; then
+		git remote rm $1
+		return
+	fi
+	echo "$1 $2 $3 $4" >> .subtrees
+}
+
+# name prefix
+function remove() {
+	echo "subtree: Removing remote $1"
+	git remote rm $1
+	if [ "$?" -ne "0" ]; then
+		echo "subtree: Erorr removing remote $1"
+		return
+	fi
+
+	echo "subtree: Removing files from $4"
+	rm -rf ./$4
+	if [ "$?" -ne "0" ]; then
+		echo "subtree: Erorr removing files from $4"
+		return
+	fi
+
+	git rm -r $4
+	if [ "$?" -ne "0" ]; then
+		echo "subtree: Erorr removing files '$4' from git"
+		return
+	fi
+
+	git commit -m "Removed subtree $1 from '$4'"
+	if [ "$?" -ne "0" ]; then
+		echo "subtree: Erorr commiting removal of subtree $1"
+		return
+	fi
+
+	echo "subtree: Removing $1 from .subtrees file"
+	PREFIX=$(echo "go/.vim/bundle/gocode" | sed -e 's/[\/&]/\\&/g')
+	sed -i".bak" "/$PREFIX/d" .subtrees
+	if [ "$?" -ne "0" ]; then
+		echo "subtree: Erorr removing subtree $1 from .subtrees file"
+		return
+	fi
+	echo "subtree: old .subtrees file has been copied to .subtrees.bak"
+}
+
+function update(){
+	git fetch $1 $3
+	if [ "$?" -ne "0" ]; then
+		return
+	fi
+	git subtree pull --prefix $4 $1 $3 --squash
+}
+
+
+case "$1" in
+"update")
+	loadSubtrees
+	case "$2" in 
+	"all")
+		for v in "${rawMap[@]}"; do 
+			update $v
+			if [ "$?" -ne "0" ]; then
+				echo "subtree: error updating subtree:\n\t$v"
+				exit 1
+			fi
+		done
+		;;
+	*)
+		if [ "${rawMap[$2]}" == "" ] ; then 
+			echo "subtree: $2 is not a subtree item. Check .subtrees file"
+			exit 1
+		fi
+		update ${rawMap[$2]}
+		if [ "$?" -ne "0" ]; then
+			echo "subtree: error updating subtree $2"
+			exit 1
+		fi
+		;;
+	esac
+	;;
+"add")
+	loadSubtrees
+	if [ "${rawMap[$2]}" != "" ] ; then 
+		echo "subtree: $2 already exists"
+		exit 1
+	fi
+
+	if [ "$5" == '' ]; then
+		echo "subtree: Usage is: subtree add <remote name> <git url> <branch> <prefix>"
+		exit 1
+	fi
+
+	add $2 $3 $4 $5
+	if [ "$?" -ne "0" ]; then
+		echo "subtree: error adding subtree $2"
+		exit 1
+	fi
+	;;
+
+"rm")
+	if [ "$1" == '' ]; then
+		echo "subtree: Usage is: subtree rm <remote name>"
+		exit 1
+	fi
+
+	loadSubtrees
+	if [ "${rawMap[$2]}" == "" ] ; then 
+		echo "subtree: $2 is not a subtree item. Check .subtrees file"
+		exit 1
+	fi
+
+	remove ${rawMap[$2]}
+	if [ "$?" -ne "0" ]; then
+		echo "subtree: error removing subtree $2"
+		exit 1
+	fi
+	;;
+*)
+	echo "subtree: Unknown command. Try 'add' or 'update'"
+	;;
+esac

@@ -1,0 +1,7 @@
+pathogen 		https://github.com/tpope/vim-pathogen 		master 	vim/.vim/bundle/vim-pathogen
+vim-nerdcommenter 	https://github.com/scrooloose/nerdcommenter 	master 	vim/.vim/bundle/nerdcommenter 
+workflowish 		https://github.com/lukaszkorecki/workflowish 	master 	vim/.vim/bundle/workflowish
+vim-markdown 		https://github.com/tpope/vim-markdown 		master 	vim/.vim/bundle/vim-markdown
+vim-fugitive 		https://github.com/tpope/vim-fugitive 		master 	git/.vim/bundle/vim-fugitive
+vim-tmuxify 		https://github.com/mhinz/vim-tmuxify 		master	tmux/.vim/bundle/vim-tmuxify
+vim-godef 		https://github.com/dgryski/vim-godef 		master	go/.vim/bundle/vim-godef
