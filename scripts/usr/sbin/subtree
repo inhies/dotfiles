@@ -4,7 +4,7 @@
 # creator: inhies
 # 24 November 2013
 
-version=1.1
+version=1.1.1
 
 function usage() {
 	case "$1" in
