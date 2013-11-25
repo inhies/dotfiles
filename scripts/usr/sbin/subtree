@@ -64,14 +64,15 @@ function add() {
 	if [ "$?" -ne "0" ]; then
 		return
 	fi
-	echo "$1 $2 $3 $4" >> .subtrees
-	git add .subtrees
 	git subtree add --prefix $4 $1 $3 --squash
 	# If there was an error adding the subtree, remove the remote we just added
 	if [ "$?" -ne "0" ]; then
 		git remote rm $1
 		return
 	fi
+	echo "$1 $2 $3 $4" >> .subtrees
+	git add .subtress
+	git commit -m "Update .subtrees for $1"
 }
 
 # name prefix
