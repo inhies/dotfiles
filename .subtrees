@@ -5,3 +5,4 @@ vim-markdown 		https://github.com/tpope/vim-markdown 		master 	vim/.vim/bundle/v
 vim-fugitive 		https://github.com/tpope/vim-fugitive 		master 	git/.vim/bundle/vim-fugitive
 vim-tmuxify 		https://github.com/mhinz/vim-tmuxify 		master	tmux/.vim/bundle/vim-tmuxify
 vim-godef 		https://github.com/dgryski/vim-godef 		master	go/.vim/bundle/vim-godef
+gocode https://github.com/nsf/gocode master go/.vim/bundle/gocode
