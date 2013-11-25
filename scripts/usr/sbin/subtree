@@ -71,7 +71,7 @@ function add() {
 		return
 	fi
 	echo "$1 $2 $3 $4" >> .subtrees
-	git add .subtress
+	git add .subtrees
 	git commit -m "Update .subtrees for $1"
 }
 
