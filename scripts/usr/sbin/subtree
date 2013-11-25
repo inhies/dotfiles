@@ -1,6 +1,55 @@
 #!/bin/bash
+
+# subtree -- a utility to help working with git subtree's
+# creator: inhies
+# 24 November 2013
+
+version=1.1
+
+function usage() {
+	case "$1" in
+	"")
+		echo "Usage: subtree <add | update | rm>"
+		;;
+	"add")
+		echo "Usage:  subtree add <remote name> <git url> <branch> <prefix>"
+		;;
+	"update")
+
+		echo "Usage: subtree update <prefix | 'all'>"
+		;;
+	"rm")
+		echo "Usage subtree rm <prefix>"
+		;;
+	esac
+	exit 1
+}
+
+# Check if we are in the root of a git repository.
+isGit=$(git rev-parse --git-dir 2> /dev/null)
+if [ !  -d .git ]; then
+	if [ "$isGit" == "" ]; then
+		# Check for a blank response, indicating a non-existant git repository.
+		echo "subtree: You are not within a git repository"
+		exit 1
+	else
+		# We are in a git repository, but not in the root of it, where we need to be.
+		echo "subtree: Subtree must be ran from within the git root directory, `dirname $isGit`"
+		exit 1
+
+	fi
+	exit
+else
+	if [ "$isGit" != ".git" ]; then
+		# A .git folder exists in this directory, but git says we aren't actually in a repository.
+		echo "subtree: A .git directory exists, but this doesnt seem to be a valid git repository"
+		exit 1
+	fi
+fi;
+
 declare -A rawMap # Global associative array to hold raw .subtrees lines
 
+# Load the subtrees file in to the map.
 function loadSubtrees(){
 	while read line
 	do
@@ -73,6 +122,11 @@ function update(){
 
 
 case "$1" in
+"-v" | "--version")
+	echo "subtree version $version"
+	exit 0
+	;;
+
 "update")
 	loadSubtrees
 	case "$2" in 
@@ -85,7 +139,11 @@ case "$1" in
 			fi
 		done
 		;;
+
 	*)
+		if [ "$2" == '' ]; then
+			usage "update"
+		fi
 		if [ "${rawMap[$2]}" == "" ] ; then 
 			echo "subtree: $2 is not a subtree item. Check .subtrees file"
 			exit 1
@@ -98,6 +156,7 @@ case "$1" in
 		;;
 	esac
 	;;
+
 "add")
 	loadSubtrees
 	if [ "${rawMap[$2]}" != "" ] ; then 
@@ -106,8 +165,7 @@ case "$1" in
 	fi
 
 	if [ "$5" == '' ]; then
-		echo "subtree: Usage is: subtree add <remote name> <git url> <branch> <prefix>"
-		exit 1
+		usage "add"
 	fi
 
 	add $2 $3 $4 $5
@@ -117,10 +175,9 @@ case "$1" in
 	fi
 	;;
 
-"rm")
-	if [ "$1" == '' ]; then
-		echo "subtree: Usage is: subtree rm <remote name>"
-		exit 1
+"rm" | "remove")
+	if [ "$2" == '' ]; then
+		usage "rm"
 	fi
 
 	loadSubtrees
@@ -136,6 +193,6 @@ case "$1" in
 	fi
 	;;
 *)
-	echo "subtree: Unknown command. Try 'add' or 'update'"
+	usage
 	;;
 esac
