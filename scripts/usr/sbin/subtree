@@ -46,12 +46,6 @@ function remove() {
 		return
 	fi
 
-	git commit -m "Removed subtree $1 from '$4'"
-	if [ "$?" -ne "0" ]; then
-		echo "subtree: Erorr commiting removal of subtree $1"
-		return
-	fi
-
 	echo "subtree: Removing $1 from .subtrees file"
 	PREFIX=$(echo "go/.vim/bundle/gocode" | sed -e 's/[\/&]/\\&/g')
 	sed -i".bak" "/$PREFIX/d" .subtrees
@@ -60,6 +54,13 @@ function remove() {
 		return
 	fi
 	echo "subtree: old .subtrees file has been copied to .subtrees.bak"
+
+	git add .subtrees
+	git commit -m "Removed subtree $1 from '$4'"
+	if [ "$?" -ne "0" ]; then
+		echo "subtree: Erorr commiting removal of subtree $1"
+		return
+	fi
 }
 
 function update(){
