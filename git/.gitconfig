@@ -58,5 +58,3 @@
 	cmd = vim -f -c \"Gdiff\" \"$MERGED\"
 [core]
 	excludesfile = ~/.gitignore_global
-[push]
-	default = simple
