@@ -1,5 +1,6 @@
 autocmd! BufWritePre *.go Fmt
-autocmd FileType go compiler go
+autocmd FileType go compiler golang
+let g:golang_goroot = '/usr/lib/go'
 
 setlocal formatoptions-=t
 setlocal smartindent          
