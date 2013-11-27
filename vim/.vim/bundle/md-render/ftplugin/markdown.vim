@@ -31,7 +31,7 @@ function!PreviewMarkdown()
         " note important extra pair of double-quotes
         let BROWSER_COMMAND = 'cmd.exe /c start ""'
     else
-        let BROWSER_COMMAND = 'gnome-open'
+        let BROWSER_COMMAND = 'firefox'
     endif
 
     " End of configurable settings
