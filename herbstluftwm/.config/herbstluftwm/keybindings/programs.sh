@@ -11,8 +11,10 @@ hc keybind $Mod-Shift-c close
 
 hc keybind $Mod-Shift-r spawn zsh -tc "xrdb ~/.Xresources &| . ~/.zshrc &| tmux source-file ~/.tmux.conf &| herbstclient reload" 
 hc keybind $Sup-p spawn pidgin
+
 hc keybind $Sup-f spawn firefox
-hc keybind $Sup-Shift-f spawn firefox -P DoD\ Certs
+hc keybind $Sup-Shift-f spawn firefox -no-remote
+
 hc keybind $Sup-w spawn urxvt -e weechat
 hc keybind $Sup-Shift-t spawn thunar
 hc keybind $Sup-t spawn urxvt -e zsh --login
