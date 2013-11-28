@@ -7,3 +7,4 @@ vim-tmuxify 		https://github.com/mhinz/vim-tmuxify 		master	tmux/.vim/bundle/vim
 vim-godef 		https://github.com/dgryski/vim-godef 		master	go/.vim/bundle/vim-godef
 gocode https://github.com/nsf/gocode master go/.vim/bundle/gocode
 vim-compiler-go https://github.com/inhies/vim-compiler-go master go/.vim/bundle/vim-compiler-go
+vim-git https://github.com/tpope/vim-git master git/.vim/bundle/vim-git
