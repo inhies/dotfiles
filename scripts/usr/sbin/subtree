@@ -160,14 +160,14 @@ case "$1" in
 	;;
 
 "add")
+	if [ "$5" == '' ]; then
+		usage "add"
+	fi
+
 	loadSubtrees
 	if [ "${rawMap[$2]}" != "" ] ; then 
 		echo "subtree: $2 already exists"
 		exit 1
-	fi
-
-	if [ "$5" == '' ]; then
-		usage "add"
 	fi
 
 	add $2 $3 $4 $5
