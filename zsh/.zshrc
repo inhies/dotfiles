@@ -55,4 +55,3 @@ setxkbmap -option ctrl:nocaps
 # setxkbmap -option compose:lwin
 
 eval $(keychain --eval --agents ssh,gpg -Q --quiet)
-/usr/local/bin/chkboot_user.sh
