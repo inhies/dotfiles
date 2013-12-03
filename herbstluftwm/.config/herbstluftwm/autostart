@@ -18,21 +18,21 @@ hc keyunbind --all
 # keybindings
 Mod=Mod1 # alt key
 Sup=Mod4 # super key
-
+hc keybind $Sup-space spawn dmenu-launch
 # source all our keybindings
 for f in ~/.config/herbstluftwm/keybindings/*.sh; do . $f; done
 
 # tags
-TAG_NAMES=( {1..9} )
-TAG_KEYS=( {1..9} 0)
+TAG_NAMES=( {2..9} )
+TAG_KEYS=( {2..9} 0)
 
 hc rename default "${TAG_NAMES[0]}" || true
 for i in ${!TAG_NAMES[@]} ; do
     hc add "${TAG_NAMES[$i]}"
     key="${TAG_KEYS[$i]}"
     if ! [ -z "$key" ] ; then
-        hc keybind "$Mod-$key" use_index "$i"
-        hc keybind "$Mod-Shift-$key" move_index "$i"
+        hc keybind "Control-$key" use_index "$i"
+        hc keybind "$Mod-Control-$key" move_index "$i"
     fi
 done
 
