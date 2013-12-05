@@ -1,1 +1,1 @@
-mogrify -resize 2048x1536 -format jpg *
+mogrify -resize 1024x768 -format jpg *
