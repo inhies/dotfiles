@@ -1,7 +1,7 @@
 hc keybind $Mod-F12 spawn q3terminal.sh
 hc keybind $Mod-Shift-q quit
-hc keybind $Mod-Shift-x spawn xscreensaver-command -lock
-hc keybind $Mod-Shift-s spawn gksu systemctl suspend
+hc keybind $Mod-Control-l spawn xscreensaver-command -lock
+hc keybind $Mod-Control-s spawn systemctl suspend
 
 hc keybind $Sup-Shift-s spawn xfce4-screenshooter
 
