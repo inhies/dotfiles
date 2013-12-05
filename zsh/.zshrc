@@ -1,6 +1,5 @@
 export ZSHFILES=~/.zsh
 
-source ~/.private/env.zsh
 
 unsetopt correct_all
 setopt correct
@@ -22,3 +21,12 @@ eval $(keychain --eval --agents ssh,gpg -Q --quiet)
 
 # Simple command line calculator
 ? () { echo "$*" | bc -l; }
+
+# Set a 60 second timeout for terminal sessions
+TMOUT=60
+readonly TMOUT
+export TMOUT
+# use vlock to lock terminals instead of closing them
+TRAPALRM() { : }
+
+source ~/.private/env.zsh
