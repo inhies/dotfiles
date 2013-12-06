@@ -1,19 +1,21 @@
-export ZSHFILES=~/.zsh
-
+ZSHFILES=~/.zsh
+PRIVFILES=~/.private
 
 unsetopt correct_all
 setopt correct
 
 export PATH=$PATH:~/usr/bin:~/usr/sbin:~/usr/opt/android-sdk-linux/platform-tools
 
-# source every .zsh file in ~/.zsh/*
-for config_file ($ZSHFILES/**/*.zsh) source $config_file
+# source every .zsh file in ~/.zsh/*/
+if [ -d "$ZSHFILES" ]; then
+	for config_file ($ZSHFILES/**/*.zsh); do  source $config_file; done
+fi
 
 # Set color support since these terminals suck and dont do it correctly
 case $COLORTERM in
-    Terminal) TERM=xterm-256color ;;
-    gnome-terminal) TERM=xterm-256color ;;
-    xfce4-terminal) TERM=xterm-256color ;;
+	Terminal|gnomer-terminal|xfce4-terminal) 
+		TERM=xterm-256color 
+		;;
 esac
 
 # Start keychain to manage ssh-agent and gpg-agent
@@ -23,10 +25,16 @@ eval $(keychain --eval --agents ssh,gpg -Q --quiet)
 ? () { echo "$*" | bc -l; }
 
 # Set a 60 second timeout for terminal sessions
-TMOUT=60
-readonly TMOUT
-export TMOUT
+if [[ "$TMOUT" == "" ]]; then
+	TMOUT=60
+	readonly TMOUT
+	export TMOUT
+fi
+
 # use vlock to lock terminals instead of closing them
 TRAPALRM() { : }
 
-source ~/.private/env.zsh
+# private scripts and such that you don't feel like sharing on github
+if [ -d "$PRIVFILES" ]; then
+	for private ($PRIVFILES/*.zsh); do source $private; done
+fi
