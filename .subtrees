@@ -8,3 +8,4 @@ vim-godef 		https://github.com/dgryski/vim-godef 		master	go/.vim/bundle/vim-god
 gocode https://github.com/nsf/gocode master go/.vim/bundle/gocode
 vim-compiler-go https://github.com/inhies/vim-compiler-go master go/.vim/bundle/vim-compiler-go
 vim-git https://github.com/tpope/vim-git master git/.vim/bundle/vim-git
+zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting master colors/.zsh/zsh-syntax-highlighting
