@@ -13,9 +13,9 @@ alias dt="cd ~/Desktop"
 alias p="cd ~/Projects"
 alias g="git"
 alias h="history"
-alias j="jobs"
+#alias j="jobs"
 alias v="vim"
-alias m="mate ."
+#alias m="mate ."
 alias s="subl ."
 alias o="open"
 alias oo="open ."
@@ -55,6 +55,7 @@ function new-scratch {
   cd $cur_dir
   echo "New scratch dir ready for grinding ;>"
 }
+
 function src-zshrc {
     source $HOME/.zshrc
 }
