@@ -22,5 +22,6 @@ synclient TouchpadOff=1
 
 # Volume control
 volti &
-
+skippy-xd --start-daemon &
+urxvtd -q -f -o 
 exec herbstluftwm --locked
