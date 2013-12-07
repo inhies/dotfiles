@@ -8,7 +8,9 @@ export PATH=$PATH:~/usr/bin:~/usr/sbin:~/usr/opt/android-sdk-linux/platform-tool
 
 # source every .zsh file in ~/.zsh/*/
 if [ -d "$ZSHFILES" ]; then
-	for config_file ($ZSHFILES/**/*.zsh); do  source $config_file; done
+	for config_file ($ZSHFILES/***/*.zsh); do  
+		source $config_file; 
+	done
 fi
 
 # Set color support since these terminals suck and dont do it correctly
