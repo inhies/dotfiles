@@ -8,7 +8,8 @@ export PATH=$PATH:~/usr/bin:~/usr/sbin:~/usr/opt/android-sdk-linux/platform-tool
 
 # source every .zsh file in ~/.zsh/*/
 if [ -d "$ZSHFILES" ]; then
-	for config_file ($ZSHFILES/***/*.zsh); do  
+	for config_file ($ZSHFILES/**.zsh); do  
+#		echo $config_file
 		source $config_file; 
 	done
 fi
