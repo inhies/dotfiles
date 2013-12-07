@@ -17,7 +17,7 @@ hc keybind $Sup-Shift-f spawn firefox -no-remote
 
 hc keybind $Sup-w spawn urxvt -e weechat
 hc keybind $Sup-Shift-t spawn thunar
-hc keybind $Sup-t spawn urxvt -e zsh --login
+hc keybind $Sup-t spawn urxvtc -e zsh --login
 #hc keybind $Mod-t spawn urxvt -e zsh --login -c "tmux -q has-session && CLIENTID=tsesh.`date +%S` && exec tmux new-session -d -t tsesh -s $CLIENTID \; set-option destroy-unattached \; attach-session -t $CLIENTID || CLIENTID=tsesh.`date +%S` && exec tmux new-session -d -s tsesh && tmux new-session -d -t tsesh -s $CLIENTID \; set-option destroy-unattached \; attach-session -t $CLIENTID"
 
 #hc keybind $Mod-t spawn urxvt -e zsh -c "tmux -q has-session && exec tmux attach-session -d || exec tmux new-session -n$USER -s$USER@$HOSTNAME" 

@@ -66,8 +66,9 @@ hc mousebind $Mod-Button3 zoom
 
 # focus
 hc keybind $Mod-BackSpace   cycle_monitor
-hc keybind $Mod-Tab         cycle_all +1
-hc keybind $Mod-Shift-Tab   cycle_all -1
+# hc keybind $Mod-Tab         cycle_all +1
+ hc keybind $Mod-Tab          spawn skippy-xd --activate-window-picker
+hc keybind $Mod-Shift-Tab   cycle_all
 hc keybind $Mod-c cycle
 hc keybind $Mod-h focus left
 hc keybind $Mod-j focus down
