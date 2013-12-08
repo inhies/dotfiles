@@ -1,7 +1,7 @@
 ZSHFILES=~/.zsh
 PRIVFILES=~/.private
 
-plugins=(colorize zsh-syntax-highlighting)
+plugins=(per-directory-history colorize zsh-syntax-highlighting)
 
 unsetopt correct_all
 setopt correct
