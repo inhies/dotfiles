@@ -1,6 +1,8 @@
 ZSHFILES=~/.zsh
 PRIVFILES=~/.private
 
+plugins=(zsh-syntax-highlighting)
+
 unsetopt correct_all
 setopt correct
 
@@ -9,7 +11,7 @@ export PATH=$PATH:~/usr/bin:~/usr/sbin:~/usr/opt/android-sdk-linux/platform-tool
 # source every .zsh file in ~/.zsh/*/
 if [ -d "$ZSHFILES" ]; then
 	for config_file ($ZSHFILES/**.zsh); do  
-#		echo $config_file
+		#		echo $config_file
 		source $config_file; 
 	done
 fi
@@ -41,3 +43,4 @@ TRAPALRM() { : }
 if [ -d "$PRIVFILES" ]; then
 	for private ($PRIVFILES/*.zsh); do source $private; done
 fi
+
