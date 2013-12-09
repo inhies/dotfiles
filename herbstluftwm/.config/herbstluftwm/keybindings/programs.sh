@@ -5,7 +5,8 @@ hc keybind $Mod-Control-s spawn systemctl suspend
 
 hc keybind $Sup-Shift-s spawn xfce4-screenshooter
 
-hc keybind $Sup-k spawn keepassx
+hc keybind $Sup-k spawn keepass
+hc keybind $Mod-Shift-p spawn keepass --auto-type
 
 hc keybind $Mod-Shift-c close
 
