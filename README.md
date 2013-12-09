@@ -49,6 +49,7 @@ stow
 go
 infinality
 redshift
+keychain
 
 pidgin
 firefox
