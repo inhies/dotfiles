@@ -1,7 +1,7 @@
 ZSHFILES=~/.zsh
 PRIVFILES=~/.private
 
-plugins=(per-directory-history colorize zsh-syntax-highlighting)
+plugins=(colorize zsh-syntax-highlighting per-directory-history)
 
 unsetopt correct_all
 setopt correct
@@ -27,8 +27,8 @@ esac
 eval $(keychain --eval --agents ssh,gpg -Q --quiet)
 
 # Simple command line calculator
-? () { echo "$*" | bc -l; }
-
+? () { echo "scale=4;$*" | bc -l; }
+alias hc=herbstclient
 # Set a 60 second timeout for terminal sessions
 if [[ "$TMOUT" == "" ]]; then
 	TMOUT=60
@@ -44,3 +44,14 @@ if [ -d "$PRIVFILES" ]; then
 	for private ($PRIVFILES/*.zsh); do source $private; done
 fi
 
+is_plugin() {
+	local base_dir=~/.zsh
+	local name=$1
+	test -f $base_dir/plugins/$name/$name.plugin.zsh
+}
+
+for plugin ($plugins); do
+	if is_plugin $plugin; then
+		source ~/.zsh/plugins/$plugin/$plugin.plugin.zsh
+	fi
+done
