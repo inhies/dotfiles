@@ -23,5 +23,9 @@ synclient TouchpadOff=1
 # Volume control
 volti &
 skippy-xd --start-daemon &
+
+# Watch the screensaver
+xss-watch.sh &
+
 urxvtd -q -f -o 
 exec herbstluftwm --locked
