@@ -23,3 +23,32 @@ Helpers
 The `scripts` project contains many helper scripts for working with `stow`,
 including `restow` which accepts a lists of project names which will recreate
 all the symlinks for the specified project; useful if you've made some changes.
+
+
+Must-have programs
+------------
+
+dunst
+hlwm
+dmenu-launch
+conky
+tint2
+
+zsh
+grml-zsh-config-git
+urxvt
+urxvt-perls
+xrdb
+xsel
+grc
+htop
+zathura
+git
+vim
+stow
+go
+infinality
+redshift
+
+pidgin
+firefox
