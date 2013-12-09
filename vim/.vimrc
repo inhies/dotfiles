@@ -96,6 +96,9 @@ if $TERM == 'linux' && $COLORTERM == ''
     colorscheme default
 endif
 
+" Mouse scrolling!
+set mouse=a
+
 "au BufRead,BufNewFile *.go set noet ts=4 sw=4
 "autocmd FileType go compiler golang
 "autocmd! BufWritePre *.go Fmt
