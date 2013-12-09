@@ -86,6 +86,6 @@ ${voffset 2}\
  ${goto 298}${color1}public ${color0}${execi 1800 wget -q -O - checkip.dyndns.org | sed -e 's/[^[:digit:]\|.]//g'} \
  ${goto 411}${color1}addrs ${color0}${addrs wlo1} \
  ${endif} \
- ${goto 636}${color1}entropy ${color0}${execi 1 ~/entropy.sh}% \
+ ${goto 636}${color1}btc cny ${color0}${execi 1 btccny} \
  ${goto 766}${color1}time${color0}${goto 873}${time %R}   \
  ${goto 915}${color1}date${color0} ${time %a %d.%m.%Y}   
